@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns="http://www.w3.org/1999/xhtml"
+>
+
+<h:head>
+    <link rel="stylesheet" href="css/stylesheet.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Memory</title>
+</h:head>
+
+<h:body>
+    <h1>Memory</h1>
+    <h:form id="Memory">
+
+        <p>
+            <p:commandButton style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                             value="Leicht" action="#{spielStartController.spielStart(12)}" rendered="#{schwierigkeitController.isSchwierigkeit()}" update="@form"/>
+            <p:commandButton  style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                              value="Mittel" action="#{spielStartController.spielStart(20)}" rendered="#{schwierigkeitController.isSchwierigkeit()}" update="@form"/>
+            <p:commandButton  style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                              value="Schwer" action="#{spielStartController.spielStart(40)}" rendered="#{schwierigkeitController.isSchwierigkeit()}" update="@form"/>
+        </p>
+
+        <ui:fragment rendered="#{spielStartController.isEnde()}">
+            <ui:include src="ende.xhtml"/>
+        </ui:fragment>
+
+        <ui:fragment rendered="#{spielStartController.isStart()}">
+            <ui:include src="spielfeld.xhtml"/>
+        </ui:fragment>
+
+        <p>
+            <p:commandButton style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                             value="Neues Spiel" action="#{schwierigkeitController.setSchwierigkeit()}" update="@form"/>
+            <p:commandButton  style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                             value="Spiel Laden" action="#{spielstandController.load()}" update="@form"/>
+            <p:commandButton  style="margin-top: 1em; margin-right: 0.25em; margin-left: 0.25em;" styleClass="rounded-button ui-button-secondary"
+                             value="Spiel Speichern" action="#{spielstandController.save()}" rendered="#{spielStartController.isStart()}" update="@form"/>
+        </p>
+    </h:form>
+</h:body>
+</html>
